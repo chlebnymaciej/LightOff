@@ -84,16 +84,46 @@ namespace LightOff
             int x = 0;
             int y = 0;
             int chan;
+            int reverse=0;
 
             do
             {
                 Console.Write("Cofasz ruchy czy gramy dalej? [c/g]");
-                
+                string end = Console.ReadLine();
+                if(end.Equals("c"))
+                {
+                    Console.Write("ile ruchow cofamy?\t");
+                    try
+                    {
+                        reverse = int.Parse(Console.ReadLine());
+                    }catch(FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    ReverseHistory(field, reverse, xHistory, yHistory, count);
+                    Console.Clear();
+                    Show(field);
+                }
+
+
+
+
+
+
                 do
                 {
-                    Console.WriteLine("--------------------------------");
-                    x = int.Parse(Console.ReadLine());
-                    y = int.Parse(Console.ReadLine());
+                    //Console.WriteLine("--------------------------------");
+                    try
+                    {
+
+
+                        x = int.Parse(Console.ReadLine());
+                        y = int.Parse(Console.ReadLine());
+                    }catch(FormatException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+
                     if (x < 10 && y < 10)
                         chan = 1;
                     else
@@ -108,7 +138,7 @@ namespace LightOff
 
                 xHistory.Add(x);
                 yHistory.Add(y);
-
+                Console.Clear();
                 Show(field);
                 
             } while (Win(field));
