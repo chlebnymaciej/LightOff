@@ -1,0 +1,7 @@
+D:\CS\LightOff\LightOff\bin\Debug\LightOff.exe.config
+D:\CS\LightOff\LightOff\bin\Debug\LightOff.exe
+D:\CS\LightOff\LightOff\bin\Debug\LightOff.pdb
+D:\CS\LightOff\LightOff\obj\Debug\LightOff.csprojAssemblyReference.cache
+D:\CS\LightOff\LightOff\obj\Debug\LightOff.csproj.CoreCompileInputs.cache
+D:\CS\LightOff\LightOff\obj\Debug\LightOff.exe
+D:\CS\LightOff\LightOff\obj\Debug\LightOff.pdb
