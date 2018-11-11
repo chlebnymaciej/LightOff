@@ -73,76 +73,95 @@ namespace LightOff
         static void Main(string[] args)
         {
             int[,] field = new int[10, 10];
-
-            List<int> xHistory = new List<int>();
-            List<int> yHistory = new List<int>();
             int Record = 32000;
-            int count = 0;
-            SetMap(field);
-            Show(field);
-
-            int x = 0;
-            int y = 0;
-            int chan;
-            int reverse=0;
+            string Game;
+            bool Game2=true;
 
             do
             {
-                Console.Write("Cofasz ruchy czy gramy dalej? [c/g]");
-                string end = Console.ReadLine();
-                if(end.Equals("c"))
-                {
-                    Console.Write("ile ruchow cofamy?\t");
-                    try
-                    {
-                        reverse = int.Parse(Console.ReadLine());
-                    }catch(FormatException e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                    ReverseHistory(field, reverse, xHistory, yHistory, count);
-                    Console.Clear();
-                    Show(field);
-                }
+                List<int> xHistory = new List<int>();
+                List<int> yHistory = new List<int>();
 
+                int count = 0;
+                SetMap(field);
+                Show(field);
 
-
-
-
+                int x = 0;
+                int y = 0;
+                int chan;
+                int reverse = 0;
 
                 do
                 {
-                    //Console.WriteLine("--------------------------------");
-                    try
+                    Console.Write("Cofasz ruchy czy gramy dalej? [c/g]");
+                    string end = Console.ReadLine();
+                    if (end.Equals("c"))
                     {
-
-
-                        x = int.Parse(Console.ReadLine());
-                        y = int.Parse(Console.ReadLine());
-                    }catch(FormatException e)
-                    {
-                        Console.WriteLine(e.Message);
+                        Console.Write("ile ruchow cofamy?\t");
+                        try
+                        {
+                            reverse = int.Parse(Console.ReadLine());
+                        } catch (FormatException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        ReverseHistory(field, reverse, xHistory, yHistory, count);
+                        Console.Clear();
+                        Show(field);
                     }
 
-                    if (x < 10 && y < 10)
-                        chan = 1;
-                    else
+
+
+
+
+
+                    do
                     {
-                        chan = 0;
-                        Console.WriteLine("Error zle dane");
+                        //Console.WriteLine("--------------------------------");
+                        try
+                        {
+
+
+                            x = int.Parse(Console.ReadLine());
+                            y = int.Parse(Console.ReadLine());
+                        } catch (FormatException e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+
+                        if (x < 10 && y < 10)
+                            chan = 1;
+                        else
+                        {
+                            chan = 0;
+                            Console.WriteLine("Error zle dane");
+                        }
+                    } while (chan != 1);
+
+                    Change(field, x, y);
+                    count++;
+
+                    xHistory.Add(x);
+                    yHistory.Add(y);
+                    Console.Clear();
+                    Show(field);
+
+                } while (Win(field));
+                if (!Win(field))
+                {
+                    Console.WriteLine("Gratulacje wygrales!!!");
+                    if(Record>count)
+                    {
+                        Record = count;
+                        Console.WriteLine("Podwojne gratulacje pobiles rekord");
                     }
-                } while (chan != 1);
+                }
+                Console.Write("gramy dalej czy nie? [g/n]");
+                Game = Console.ReadLine();
+                if (Game.Equals("n"))
+                    Game2 = false;
 
-                Change(field, x, y);
-                count++;
-
-                xHistory.Add(x);
-                yHistory.Add(y);
-                Console.Clear();
-                Show(field);
-                
-            } while (Win(field));
-
+            } while(Game2);
 
             Console.Read();
 
