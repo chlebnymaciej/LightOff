@@ -60,7 +60,7 @@ namespace LightOff
             }
             return false;
         }
-        static void ReverseHistory(int[,] field, int reverse, List<int> xHistory, List<int> yHistory, int count)
+        static void ReverseHistory(int[,] field, int reverse, List<int> xHistory, List<int> yHistory,ref int count)
         {
             int maks =-1+ xHistory.Count;
             count -= reverse;
@@ -68,7 +68,19 @@ namespace LightOff
             {
                 int index = maks - i;
                 Change(field, xHistory[index], yHistory[index]);
+                xHistory.RemoveAt(index);
+                yHistory.RemoveAt(index);
             }
+        }
+        static bool CorrectData(int reverse, int count)
+        {
+            if (reverse > count)
+            {
+                Console.Write("bledne dane jeszcze raz");
+                return true;
+            }
+            else
+                return false;
         }
 
         static void Main(string[] args)
@@ -100,14 +112,22 @@ namespace LightOff
                     if (end.Equals("c"))
                     {
                         Console.Write("ile ruchow cofamy?\t");
-                        try
+                        do
                         {
-                            reverse = int.Parse(Console.ReadLine());
-                        } catch (FormatException e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                        ReverseHistory(field, reverse, xHistory, yHistory, count);
+
+
+                            try
+                            {
+                                reverse = int.Parse(Console.ReadLine());
+
+                            }
+                            catch (FormatException e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                        } while (CorrectData(reverse, count));
+                        
+                        ReverseHistory(field, reverse, xHistory, yHistory,ref count);
                         Console.Clear();
                         Show(field);
                         Console.WriteLine(count);
@@ -148,6 +168,7 @@ namespace LightOff
                     yHistory.Add(y);
                     Console.Clear();
                     Show(field);
+                    Console.WriteLine("Liczba wykonanych ruchow : {0}", count);
 
                 } while (Win(field));
                 if (!Win(field))
